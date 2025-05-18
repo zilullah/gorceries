@@ -1,5 +1,5 @@
 import * as React from "react";
-import { assets } from "../assets/assets";
+import { assets, features } from "../assets/assets";
 
 interface IconsProps {
   title: string;
@@ -21,7 +21,7 @@ const Icons: React.FC<IconsProps> = ({ title, text, image }) => {
 
 const BottomBanner = () => {
   return (
-    <div className="relative">
+    <div className="relative mt-24">
       <img
         src={assets.bottom_banner_image}
         alt="Bottom Banner"
@@ -33,29 +33,18 @@ const BottomBanner = () => {
         className="w-full md:hidden mt-16"
       />
       <div className="absolute inset-0 flex flex-col items-center md:items-end md:justify-center pt-16 md:pt-0 md:pr-24">
-        <h3 className="text-2xl md:text-3xl font-semibold text-primary">
-          Why Are We The Best
-        </h3>
-        <Icons
-          title="Fastest Delivery"
-          text="Groceries delivered in under 30 minutes."
-          image={assets.delivery_truck_icon}
-        />
-        <Icons
-          title="Freshness Guaranteed"
-          text="Fresh produce straight from the source."
-          image={assets.leaf_icon}
-        />
-        <Icons
-          title="Affordable Prices"
-          text="Quality groceries at unbeatable prices."
-          image={assets.coin_icon}
-        />
-        <Icons
-          title="Trusted by Thousands"
-          text="Loved by 10,000+ happy customers."
-          image={assets.trust_icon}
-        />
+        <div>
+          <h3 className="text-2xl md:text-3xl font-semibold text-primary mb-6">
+            Why Are We The Best
+          </h3>
+          {features.map((item) => (
+            <Icons
+              title={item?.title}
+              text={item?.description}
+              image={item?.icon}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
