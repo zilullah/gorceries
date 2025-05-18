@@ -5,8 +5,12 @@ import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
-  const { user, setUser, setShowUserLogin, navigate } = useAppContext();
-
+  const { user, setUser, setShowUserLogin, navigate, cartItems } =
+    useAppContext();
+  const totalQuantity = Object.values(cartItems).reduce(
+    (sum, qty) => sum + qty,
+    0
+  );
   const handleAuthButton = async () => {
     if (user) {
       // Logout
@@ -52,7 +56,7 @@ const Navbar = () => {
         >
           <img src={assets.cart_icon} className="w-8 opacity-80" />
           <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">
-            3
+            {totalQuantity}
           </button>
         </div>
 

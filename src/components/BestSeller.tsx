@@ -8,9 +8,9 @@ const BestSeller = () => {
   return (
     <div className="mt-16">
       <p className="text-2xl md:text-3xl font-medium">Best Sellers</p>
-      <div className="group grid gap-6 mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      <div className="grid gap-6 mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {bestSeller.map((item: undefined, index: undefined) => (
-          <ProductCart product={item} key={index} />
+          <ProductCart product={item} />
         ))}
       </div>
     </div>
