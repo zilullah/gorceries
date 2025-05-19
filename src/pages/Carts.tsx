@@ -1,4 +1,8 @@
+import * as React from "react";
+import { useAppContext } from "../context/AppContext";
+
 const Carts = () => {
+  const { navigate } = useAppContext();
   const [showAddress, setShowAddress] = React.useState(false);
 
   const products = [
@@ -118,7 +122,10 @@ const Carts = () => {
           </div>
         ))}
 
-        <button className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium">
+        <button
+          onClick={() => navigate("/products")}
+          className="group cursor-pointer flex items-center mt-8 gap-2 text-indigo-500 font-medium"
+        >
           <svg
             width="15"
             height="11"

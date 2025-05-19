@@ -21,6 +21,8 @@ interface AppContextType {
   setProduc: React.Dispatch<React.SetStateAction<[]>>;
   cartItems: undefined;
   setCartItems: React.Dispatch<React.SetStateAction<undefined>>;
+  showLoginForm: boolean;
+  setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -36,6 +38,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [user, setUser] = useState(null);
   const [isSeller, setIsSeller] = useState(false);
   const [showUserLogin, setShowUserLogin] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
   console.log(cartItems);
@@ -72,6 +75,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     toast.success("Successfully Remove!");
   };
 
+  const handleLoginForm = () => setShowLoginForm(!showLoginForm);
+
   useEffect(() => {
     fetchProduct();
   }, []);
@@ -90,6 +95,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     addProducts,
     updateProducts,
     removeProduct,
+    handleLoginForm,
+    showLoginForm,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
