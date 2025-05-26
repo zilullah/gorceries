@@ -3,6 +3,7 @@ import React, {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,8 @@ interface AppContextType {
   setCartItems: React.Dispatch<React.SetStateAction<undefined>>;
   showLoginForm: boolean;
   setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
+  searchProduct: string;
+  setSearhProduct: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -41,7 +44,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
-  console.log(cartItems);
+  const [searchProduct, setSearchProduct] = useState<string>("");
+
   const fetchProduct = async () => {
     setProducts(dummyProducts);
   };
@@ -77,6 +81,20 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
   const handleLoginForm = () => setShowLoginForm(!showLoginForm);
 
+  const productSearch = useMemo(() => {
+    if (searchProduct !== "") {
+      const item = products.filter(
+        (items: undefined) =>
+          items.name.toLowerCase().includes(searchProduct.toLowerCase()) ||
+          items.category.toLowerCase().includes(searchProduct.toLowerCase())
+      );
+      console.log(item);
+      return item;
+    } else {
+      return products;
+    }
+  }, [products, searchProduct]);
+
   useEffect(() => {
     fetchProduct();
   }, []);
@@ -97,6 +115,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     removeProduct,
     handleLoginForm,
     showLoginForm,
+    productSearch,
+    setSearchProduct,
+    searchProduct,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
