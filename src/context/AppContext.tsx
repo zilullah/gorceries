@@ -25,7 +25,9 @@ interface AppContextType {
   showLoginForm: boolean;
   setShowLoginForm: React.Dispatch<React.SetStateAction<boolean>>;
   searchProduct: string;
-  setSearhProduct: React.Dispatch<React.SetStateAction<string>>;
+  setSearchProduct: React.Dispatch<React.SetStateAction<string>>;
+  categoryProduct: string;
+  setCategoryProduct: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -45,6 +47,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
   const [searchProduct, setSearchProduct] = useState<string>("");
+  const [categoryProduct, setCategoryProduct] = useState<string>("");
 
   const fetchProduct = async () => {
     setProducts(dummyProducts);
@@ -81,14 +84,22 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 
   const handleLoginForm = () => setShowLoginForm(!showLoginForm);
 
+  const productCategory = useMemo(() => {
+    if (categoryProduct !== "") {
+      const item = products.filter((items: undefined) =>
+        items.category.toLowerCase().includes(categoryProduct.toLowerCase())
+      );
+      return item;
+    } else {
+      return products;
+    }
+  }, [products, categoryProduct]);
+
   const productSearch = useMemo(() => {
     if (searchProduct !== "") {
-      const item = products.filter(
-        (items: undefined) =>
-          items.name.toLowerCase().includes(searchProduct.toLowerCase()) ||
-          items.category.toLowerCase().includes(searchProduct.toLowerCase())
+      const item = products.filter((items: undefined) =>
+        items.name.toLowerCase().includes(searchProduct.toLowerCase())
       );
-      console.log(item);
       return item;
     } else {
       return products;
@@ -118,6 +129,8 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     productSearch,
     setSearchProduct,
     searchProduct,
+    setCategoryProduct,
+    productCategory,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
