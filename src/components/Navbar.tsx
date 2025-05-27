@@ -51,11 +51,20 @@ const Navbar = () => {
           <NavLink
             className="text-xs text-gray-600 border-1 border-gray-300 py-1 px-2 rounded-2xl cursor-pointer"
             to={"/"}
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setSearchProduct("");
+              setOpen(false);
+            }}
           >
             Seller Dashboard
           </NavLink>
-          <NavLink to={"/"} onClick={() => setOpen(false)}>
+          <NavLink
+            to={"/"}
+            onClick={() => {
+              setSearchProduct("");
+              setOpen(false);
+            }}
+          >
             Home
           </NavLink>
           <NavLink to={"/products"}>All Product</NavLink>
@@ -65,6 +74,7 @@ const Navbar = () => {
                 e.preventDefault();
                 setSearchProduct(e.target.value);
               }}
+              value={searchProduct}
               className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500"
               type="text"
               placeholder="Search products"
@@ -135,6 +145,7 @@ const Navbar = () => {
             <NavLink
               to={"/"}
               onClick={() => {
+                setSearchProduct("");
                 setOpen(false);
               }}
               className="block"
