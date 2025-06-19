@@ -110,7 +110,7 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
     fetchProduct();
   }, []);
 
-  const value = {
+  const value: AppContextType = {
     navigate,
     user,
     isSeller,
@@ -136,5 +136,9 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 };
 
 export const useAppContext = () => {
-  return useContext(AppContext);
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext must be used within an AppContextProvider");
+  }
+  return context;
 };

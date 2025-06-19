@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className="hidden sm:flex items-center gap-8">
           <NavLink
             className="text-xs text-gray-600 border-1 border-gray-300 py-1 px-2 rounded-2xl cursor-pointer"
-            to={"/"}
+            to={"/loginseller"}
             onClick={() => {
               setSearchProduct("");
               setOpen(false);
