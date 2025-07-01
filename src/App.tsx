@@ -10,11 +10,11 @@ import { useAppContext } from "./context/AppContext";
 import Carts from "./pages/Carts";
 import NotFound from "./pages/NotFound";
 import LoginSeller from "./pages/LoginSeller";
+import DashboardSeller from "./pages/DashboardSeller";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
   const { showLoginForm } = useAppContext();
-
   return (
     <div className="">
       {isSellerPath ? null : <Navbar />}
@@ -27,6 +27,7 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:category" element={<Products />} />
           <Route path="/carts" element={<Carts />} />
+          <Route path="/dashboardseller" element={<DashboardSeller />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -1,6 +1,10 @@
-import React from "react";
+import * as React from "react";
+import { useAppContext } from "../context/AppContext";
 
 const LoginSeller = () => {
+  const { navigate } = useAppContext();
+  const emailRef = React.useRef("");
+  const passwordRef = React.useRef("");
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <form className="bg-white text-gray-500 max-w-[340px] w-full mx-4 md:p-6 p-4 py-8 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
@@ -32,10 +36,12 @@ const LoginSeller = () => {
             />
           </svg>
           <input
+            defaultValue="admin@gmail.com"
             className="w-full outline-none bg-transparent py-2.5"
             type="email"
             placeholder="Email"
             required
+            onChange={(val) => (emailRef.current = val.target.value)}
           />
         </div>
         <div className="flex items-center mt-2 mb-4 border bg-indigo-500/5 border-gray-500/10 rounded gap-1 pl-2">
@@ -52,10 +58,12 @@ const LoginSeller = () => {
             />
           </svg>
           <input
+            defaultValue="admin"
             className="w-full outline-none bg-transparent py-2.5"
             type="password"
             placeholder="Password"
             required
+            onChange={(val) => (passwordRef.current = val.target.value)}
           />
         </div>
         <div className="flex items-center justify-between mb-6">
@@ -68,6 +76,10 @@ const LoginSeller = () => {
           </a>
         </div>
         <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("dashboardseller");
+          }}
           type="submit"
           className="w-full mb-3 bg-indigo-500 hover:bg-indigo-600/90 transition py-2.5 rounded text-white font-medium"
         >
